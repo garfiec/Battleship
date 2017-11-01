@@ -9,6 +9,6 @@ public class Remote_Player extends Local_Player {
 
     @Override
     public void makeMove(byte x, byte y) {
-
+        
     }
 }
