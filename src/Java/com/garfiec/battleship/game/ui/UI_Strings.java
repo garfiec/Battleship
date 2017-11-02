@@ -5,6 +5,6 @@ public class UI_Strings {
     public static final String HOW_TO_PLAY  = "";
     public static final String HOW_TO_USE   = "";
     public static final String ABOUT        = "Garfie Chiu: gchiu2\n" +
-                                                "Name: netid\n" +
+                                                "Cesar Lazcano: clazca2\n" +
                                                 "Name: netid";
 }

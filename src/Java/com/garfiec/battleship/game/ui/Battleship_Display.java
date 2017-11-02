@@ -1,11 +1,18 @@
 package Java.com.garfiec.battleship.game.ui;
 
 import javax.swing.*;
+
+import Java.com.garfiec.battleship.game.Client;
+import Java.com.garfiec.battleship.game.Game_Manager;
+import Java.com.garfiec.battleship.game.Remote_Client;
 import Java.com.garfiec.battleship.game.util.Game_Strings;
 
 import java.awt.*;
 
 public class Battleship_Display extends JFrame {
+    // Todo: Reference to client object controlling UI
+    // Ex. Client game_client = new Game_Manager() or Remote_Client();
+
     public Battleship_Display()  {
         super(Game_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
@@ -95,4 +102,7 @@ public class Battleship_Display extends JFrame {
 
         this.setJMenuBar(menuBar);
     }
+
+    // Todo: Create view for player's attack board and defend board.
+    // Todo: onRegionClick pass attack coordinate to client -> player.makeMove (client passes coordinates to player, which makes a move)
 }

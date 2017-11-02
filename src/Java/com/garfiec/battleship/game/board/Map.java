@@ -1,10 +1,11 @@
 package Java.com.garfiec.battleship.game.board;
 
-import Java.com.garfiec.battleship.game.util.Game_Constants;
+import Java.com.garfiec.battleship.game.util.Game_Consts;
 
 public class Map {
-    protected static final byte rows = Game_Constants.ROWS;
-    protected static final byte cols = Game_Constants.COLUMNS;
+    // Generic Map
+    protected static final byte rows = Game_Consts.ROWS;
+    protected static final byte cols = Game_Consts.COLUMNS;
 
     protected Region[][] regions = new Region[rows][cols];
 }

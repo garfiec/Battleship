@@ -1,13 +1,16 @@
 package Java.com.garfiec.battleship.game.player;
 
-public class Local_Player {
-    protected boolean isLocal;
+import Java.com.garfiec.battleship.game.Game_Manager;
+import Java.com.garfiec.battleship.game.util.Player_Type;
 
-    public Local_Player() {
-        isLocal = true;
+public class Local_Player extends Player {
+
+    public Local_Player(Game_Manager gm) {
+        player_type = Player_Type.LOCAL;
+        this.gm = gm;
     }
 
-    public void makeMove(byte x, byte y) {
-
+    protected void makeMove(byte x, byte y) {
+        gm.makeMove(player_type, x, y);
     }
 }
