@@ -12,4 +12,12 @@ public class Attack_Board extends Map {
             }
         }
     }
+
+    public boolean getHitStatus(Point cord) {
+        return regions[cord.y][cord.x].isHit();
+    }
+
+    public boolean attack(Point cord) {
+        return regions[cord.y][cord.x].hit();
+    }
 }
