@@ -15,8 +15,9 @@ public class Game_Manager extends Client {
     Defend_Board[] playerBoards = new Defend_Board[Game_Consts.NUM_PLAYERS];
     Attack_Board[] enemyBoards = new Attack_Board[Game_Consts.NUM_PLAYERS];
 
-    public void Game_Manager() {
-
+    public Game_Manager() {
+        super();
+        client_type = Client_Type.GAME_MANAGER;
     }
 
     public void initializeGame() {
