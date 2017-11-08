@@ -5,23 +5,30 @@ import javax.swing.*;
 import Java.com.garfiec.battleship.game.Client;
 import Java.com.garfiec.battleship.game.Game_Manager;
 import Java.com.garfiec.battleship.game.Remote_Client;
+import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
 import Java.com.garfiec.battleship.game.util.Game_Consts;
+import Java.com.garfiec.battleship.game.util.Game_Settings;
 import Java.com.garfiec.battleship.game.util.Game_Strings;
 
 import java.awt.*;
 
 public class Battleship_Display extends JFrame {
-    // Todo: Reference to client object controlling UI
-    // Ex. Client game_client = new Game_Manager() or Remote_Client();
+    // Settings object
+    Game_Settings settings;
+
+    // Reference to client object controlling UI
     Client game_client;
 
     public Battleship_Display()  {
         super(Game_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
 
+        // Initialization
+        settings = new Game_Settings();
         createMenu();
         showClientPicker();
 
+        this.setLocation(100, 100); // Temp fix to spawn issue
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(UI_Constants.WIDTH, UI_Constants.HEIGHT);
         setVisible(true);
@@ -110,7 +117,10 @@ public class Battleship_Display extends JFrame {
 
         menuItem = new JMenuItem("Connection Settings");
         menuItem.addActionListener(e -> {
-            // TODO: Connection Settings
+            // TODO: Connection Settings (Show settings dialog)
+            //JDialog dialog = new JDialog(this, true);
+            //dialog.add(new Connection_Settings_Display(settings));
+            JDialog dialog = new JDialog(new Connection_Settings_Display(settings));
         });
         menu.add(menuItem);
 
