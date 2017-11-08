@@ -98,4 +98,8 @@ public class Defend_Board extends Map {
     public boolean isAlive() {
         return active_regions.size() > 0;
     }
+
+    public Region getRegion(Point cord) {
+        return regions[cord.y][cord.x];
+    }
 }

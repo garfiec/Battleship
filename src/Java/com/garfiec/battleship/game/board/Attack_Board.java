@@ -12,12 +12,13 @@ public class Attack_Board extends Map {
             }
         }
     }
-
-    public boolean getHitStatus(Point cord) {
-        return regions[cord.y][cord.x].isHit();
+    
+    public Region getRegion(Point cord) {
+        return regions[cord.y][cord.x];
     }
 
-    public boolean attack(Point cord) {
-        return regions[cord.y][cord.x].hit();
+    public void attack(Point cord, boolean isOccupied) {
+        regions[cord.y][cord.x].setOccupancy(isOccupied);
+        regions[cord.y][cord.x].hit();
     }
 }

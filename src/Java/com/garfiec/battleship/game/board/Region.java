@@ -17,6 +17,7 @@ public class Region {
 
     public void setOccupancy(boolean status) {
         this.occupancyStatus = status;
+        this.ship = Ships.GENERIC;
     }
 
     public void setOccupancy(Ships ship_type) {
