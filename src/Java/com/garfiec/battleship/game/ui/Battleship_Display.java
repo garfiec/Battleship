@@ -5,6 +5,7 @@ import javax.swing.*;
 import Java.com.garfiec.battleship.game.Client;
 import Java.com.garfiec.battleship.game.Game_Manager;
 import Java.com.garfiec.battleship.game.Remote_Client;
+import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
 import Java.com.garfiec.battleship.game.util.Game_Consts;
 import Java.com.garfiec.battleship.game.util.Game_Settings;
@@ -18,6 +19,9 @@ public class Battleship_Display extends JFrame {
 
     // Reference to client object controlling UI
     Client game_client;
+
+    // Reference to player object associated with GUI
+    Player player;
 
     public Battleship_Display()  {
         super(Game_Strings.GUI_TITLE);
