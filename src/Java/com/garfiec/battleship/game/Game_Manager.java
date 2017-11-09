@@ -2,18 +2,21 @@ package Java.com.garfiec.battleship.game;
 
 import Java.com.garfiec.battleship.game.board.Attack_Board;
 import Java.com.garfiec.battleship.game.board.Defend_Board;
+import Java.com.garfiec.battleship.game.board.Region;
 import Java.com.garfiec.battleship.game.player.Local_Player;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.player.Remote_Player;
 import Java.com.garfiec.battleship.game.util.Game_Consts;
 import Java.com.garfiec.battleship.game.util.Player_Type;
 
+import java.awt.*;
+
 // Assumes to be the server (the local client)
 public class Game_Manager extends Client {
     Player[] players = new Player[Game_Consts.NUM_PLAYERS];
 
-    Defend_Board[] playerBoards = new Defend_Board[Game_Consts.NUM_PLAYERS];
-    Attack_Board[] enemyBoards = new Attack_Board[Game_Consts.NUM_PLAYERS];
+    private Defend_Board[] playerBoards = new Defend_Board[Game_Consts.NUM_PLAYERS];
+    private Attack_Board[] enemyBoards = new Attack_Board[Game_Consts.NUM_PLAYERS];
 
     public Game_Manager() {
         super();
