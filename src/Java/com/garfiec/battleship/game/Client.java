@@ -1,5 +1,8 @@
 package Java.com.garfiec.battleship.game;
 
+import Java.com.garfiec.battleship.game.player.Player;
+import Java.com.garfiec.battleship.game.ui.Battleship_Display;
+
 // Generic Client
 public class Client {
     public enum Client_Type {
@@ -19,4 +22,23 @@ public class Client {
     }
 
     // Todo: Abstract methods to hook to UI
+    public Player getLocalPlayer(Player player) {
+        return new Player() {
+            @Override
+            public void setUIHook(Battleship_Display ui) {
+
+            }
+
+            @Override
+            public void playersTurn() {
+
+            }
+
+            @Override
+            public boolean makeMove(byte x, byte y) {
+                return false;
+            }
+        };
+    }
+
 }

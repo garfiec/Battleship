@@ -1,11 +1,14 @@
 package Java.com.garfiec.battleship.game.player;
 
-import Java.com.garfiec.battleship.game.Game_Manager;
+import Java.com.garfiec.battleship.game.ui.Battleship_Display;
 import Java.com.garfiec.battleship.game.util.Player_Type;
 
 public abstract class Player {
-    Game_Manager gm;
+    protected Battleship_Display ui;
+
     protected Player_Type player_type;
 
-    protected abstract void makeMove(byte x, byte y);
+    public abstract void setUIHook(Battleship_Display ui);
+    public abstract void playersTurn();
+    public abstract boolean makeMove(byte x, byte y);
 }
