@@ -18,6 +18,8 @@ public class Defend_Board extends Map {
     HashSet<Point> active_regions = new HashSet<>();
 
     public Defend_Board() {
+        type = BoardType.DEFEND_BOARD;
+
         // Initialize Regions
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
@@ -101,5 +103,10 @@ public class Defend_Board extends Map {
 
     public Region getRegion(Point cord) {
         return regions[cord.y][cord.x];
+    }
+
+    @Override
+    public BoardType getType() {
+        return type;
     }
 }

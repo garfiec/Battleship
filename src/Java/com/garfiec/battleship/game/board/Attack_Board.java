@@ -6,6 +6,8 @@ public class Attack_Board extends Map {
     // Map to track hits and and attack on enemy
 
     public Attack_Board() {
+        type = BoardType.ATTACK_BOARD;
+
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 regions[y][x] = new Region();
@@ -20,5 +22,10 @@ public class Attack_Board extends Map {
     public void attack(Point cord, boolean isOccupied) {
         regions[cord.y][cord.x].setOccupancy(isOccupied);
         regions[cord.y][cord.x].hit();
+    }
+
+    @Override
+    public BoardType getType() {
+        return type;
     }
 }
