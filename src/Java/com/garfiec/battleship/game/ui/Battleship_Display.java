@@ -6,6 +6,7 @@ import Java.com.garfiec.battleship.game.Client;
 import Java.com.garfiec.battleship.game.Game_Manager;
 import Java.com.garfiec.battleship.game.Remote_Client;
 import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
+import Java.com.garfiec.battleship.game.ui.etc.UI_Board;
 import Java.com.garfiec.battleship.game.util.Game_Consts;
 import Java.com.garfiec.battleship.game.util.Game_Settings;
 import Java.com.garfiec.battleship.game.util.Game_Strings;
@@ -22,6 +23,14 @@ public class Battleship_Display extends JFrame {
     public Battleship_Display()  {
         super(Game_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
+
+        // Set panes
+        JPanel boardPanel = new JPanel(new BorderLayout());
+        UI_Board defendPanel = new UI_Board();
+        UI_Board attackPanel = new UI_Board();
+        boardPanel.add(defendPanel, BorderLayout.LINE_START);
+        boardPanel.add(attackPanel,BorderLayout.LINE_END);
+        add(boardPanel, BorderLayout.CENTER);
 
         // Initialization
         settings = new Game_Settings();
