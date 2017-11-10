@@ -21,6 +21,8 @@ public class Game_Manager extends Client {
     boolean gameInProgress = false;
     Player_Type currentTurn;
 
+    // Todo: boolean setup board mode
+
     public Game_Manager() {
         super();
         client_type = Client_Type.GAME_MANAGER;
@@ -48,6 +50,11 @@ public class Game_Manager extends Client {
 
         // Flag as started
         gameInProgress = true;
+    }
+
+    @Override
+    public Player getLocalPlayer() {
+        return players[Player_Type.LOCAL.index];
     }
 
     // Processes move

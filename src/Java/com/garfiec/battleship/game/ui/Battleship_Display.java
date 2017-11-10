@@ -7,8 +7,6 @@ import Java.com.garfiec.battleship.game.Game_Manager;
 import Java.com.garfiec.battleship.game.Remote_Client;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
-import Java.com.garfiec.battleship.game.ui.etc.UI_Board;
-import Java.com.garfiec.battleship.game.util.Game_Consts;
 import Java.com.garfiec.battleship.game.util.Game_Settings;
 import Java.com.garfiec.battleship.game.util.Game_Strings;
 
@@ -48,6 +46,23 @@ public class Battleship_Display extends JFrame {
 
     }
 
+    private boolean pickClient(Client.Client_Type type) {
+        if (type == Client.Client_Type.NONE) {
+            return false;
+        }
+
+        if (type == Client.Client_Type.GAME_MANAGER) {
+            game_client = new Game_Manager();
+
+        }
+        else if (type == Client.Client_Type.REMOTE_CLIENT) {
+            game_client = new Remote_Client();
+        }
+
+        player = game_client.getLocalPlayer();
+        return true;
+    }
+
     private void showClientPicker() {
         Object[] options = {"Game Server", "Remote Client"};
         Object result = JOptionPane.showInputDialog(this,
@@ -59,11 +74,11 @@ public class Battleship_Display extends JFrame {
                 options[0]
         );
         if (result == options[0]) {
-            game_client = new Game_Manager();
+            pickClient(Client.Client_Type.GAME_MANAGER);
             resetGUI();
         }
         else {
-            game_client = new Remote_Client();
+            pickClient(Client.Client_Type.REMOTE_CLIENT);
             resetGUI();
         }
     }
@@ -100,7 +115,7 @@ public class Battleship_Display extends JFrame {
                         JOptionPane.YES_NO_OPTION
                 );
                 if (result == 0) {
-                    game_client = new Game_Manager();
+                    pickClient(Client.Client_Type.GAME_MANAGER);
                     resetGUI();
                 }
             }
@@ -119,7 +134,7 @@ public class Battleship_Display extends JFrame {
                         JOptionPane.YES_NO_OPTION
                 );
                 if (result == 0) {
-                    game_client = new Remote_Client();
+                    pickClient(Client.Client_Type.REMOTE_CLIENT);
                     resetGUI();
                 }
             }
@@ -180,4 +195,31 @@ public class Battleship_Display extends JFrame {
 
     // Todo: Create view for player's attack board and defend board.
     // Todo: onRegionClick pass attack coordinate to client -> player.makeMove (client passes coordinates to player, which makes a move)
+    private class UI_Board extends JPanel {
+
+        public UI_Board() { //*** TODO add attack/defense board as param TODO ***//
+            super();
+            setLayout(new GridLayout(9,9));
+            for(int row = 0; row < 9; row++) {
+                for(int col = 0; col < 9; col++) {
+                    //add(new Cell(row,col));
+                    final byte x = (byte) col;
+                    final byte y = (byte) row;
+
+                    JButton region = new JButton();
+                    region.addActionListener(e -> {
+                        // Todo: Differentiate between attack/defend
+                        // Make Move
+                        player.makeMove(x, y);
+
+                        // Update logic
+                        // Todo: Update graphics for cell
+                    });
+                    add(region);
+                }
+            } // end loop
+        }
+
+    }
 }
+

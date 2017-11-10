@@ -13,26 +13,8 @@ public class Cell extends JButton {
         //region = reg;   delete comment once we can reference our regions
         x = _x;
         y = _y;
-        addActionListener(new cellListener());
+        //addActionListener(new cellListener());
+        //addActionListener(e -> player.makeMove(x, y));
     }
 
-    // getters
-    int X() {return x;}
-    int Y() {return y;}
-    Region getRegion() {return region;}
-
-    // setters
-    void setCoords(int _x, int _y) {
-        x = _x;
-        y = _y;
-    }
-
-    class cellListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Cell selected = (Cell)e.getSource();
-            System.out.println("(x,y): " + "(" + (selected.X()+1)
-                    + "," + (selected.Y()+1) + ")");
-        }
-    }
 }

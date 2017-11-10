@@ -17,4 +17,9 @@ public class Remote_Client extends Client {
     public void initializeClient() {
         remote_player = new Remote_Player_Client(this);
     }
+
+    @Override
+    public Player getLocalPlayer() {
+        return remote_player;
+    }
 }

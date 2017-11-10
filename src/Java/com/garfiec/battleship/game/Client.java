@@ -22,7 +22,7 @@ public class Client {
     }
 
     // Todo: Abstract methods to hook to UI
-    public Player getLocalPlayer(Player player) {
+    public Player getLocalPlayer() {
         return new Player() {
             @Override
             public void setUIHook(Battleship_Display ui) {
