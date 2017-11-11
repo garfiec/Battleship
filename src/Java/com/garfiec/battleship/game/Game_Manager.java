@@ -10,6 +10,7 @@ import Java.com.garfiec.battleship.game.util.Game_Consts;
 import Java.com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 // Assumes to be the server (the local client)
 public class Game_Manager extends Client {
@@ -21,7 +22,7 @@ public class Game_Manager extends Client {
     boolean gameInProgress = false;
     Player_Type currentTurn;
 
-    // Todo: boolean setup board mode
+    boolean setupMode; // Allow users to add ships
 
     public Game_Manager() {
         super();
@@ -42,14 +43,20 @@ public class Game_Manager extends Client {
         enemyBoards[Player_Type.REMOTE.index] = new Attack_Board();
 
         gameInProgress = false;
+
+        setupMode = true;
         // Send set up board signal
     }
 
     public void startGame() {
-        // Set random start player
-
         // Flag as started
         gameInProgress = true;
+
+        // Todo: Tell all players to add their ships
+
+        // Choose random player to start and start
+        int randomPlayer = ThreadLocalRandom.current().nextInt(0, Game_Consts.NUM_PLAYERS);
+        players[randomPlayer].playersTurn();
     }
 
     @Override
