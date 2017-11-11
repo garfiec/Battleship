@@ -52,7 +52,10 @@ public class Game_Manager extends Client {
         // Flag as started
         gameInProgress = true;
 
-        // Todo: Tell all players to add their ships
+        // Tell all players to add their ships
+        for (Player player: players) {
+            player.doAddships();
+        }
 
         // Choose random player to start and start
         int randomPlayer = ThreadLocalRandom.current().nextInt(0, Game_Consts.NUM_PLAYERS);

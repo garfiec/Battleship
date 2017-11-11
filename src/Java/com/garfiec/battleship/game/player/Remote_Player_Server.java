@@ -1,8 +1,11 @@
 package Java.com.garfiec.battleship.game.player;
 
 import Java.com.garfiec.battleship.game.Game_Manager;
+import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.ui.Battleship_Display;
 import Java.com.garfiec.battleship.game.util.Player_Type;
+
+import java.awt.*;
 
 public class Remote_Player_Server extends Player {
     Game_Manager gm;
@@ -14,7 +17,19 @@ public class Remote_Player_Server extends Player {
 
     @Override
     public void setUIHook(Battleship_Display ui) {
-        // Do nothing. Ser
+        // Do nothing. Server only
+    }
+
+    // Todo: Tell Gui it's time to set up the board
+    @Override
+    public void doAddships() {
+
+    }
+
+    // Todo: send game_manager ship to add and where
+    @Override
+    public boolean addShip(Ships ship, Point cord) {
+        return false;
     }
 
     // Send message to remote gui to make a move (Transmit)
