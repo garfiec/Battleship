@@ -7,6 +7,7 @@ import Java.com.garfiec.battleship.game.Game_Manager;
 import Java.com.garfiec.battleship.game.Remote_Client;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
+import Java.com.garfiec.battleship.game.ui.etc.UI_About;
 import Java.com.garfiec.battleship.game.util.Game_Settings;
 import Java.com.garfiec.battleship.game.util.Game_Strings;
 
@@ -183,7 +184,8 @@ public class Battleship_Display extends JFrame {
         menu.addSeparator();
 
         menuItem = new JMenuItem("About");
-        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(this, UI_Strings.ABOUT));
+//        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(this, UI_Strings.ABOUT));
+        menuItem.addActionListener(e -> new JDialog(new UI_About()));
         menu.add(menuItem);
 
         this.setJMenuBar(menuBar);
