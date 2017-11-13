@@ -49,6 +49,12 @@ public class Remote_Player_Server extends Player {
         return gm.makeMove(player_type, x, y);
     }
 
+    // Transmit message to client that a player has won
+    @Override
+    public void announceWin(Player_Type player) {
+        // Todo
+    }
+
     // Todo: Socket listening for moves. Implement runnable to prevent program from locking up while attempting to communicate
     // Todo: Translate incoming message into a move
     // Todo: Transmit message remote client

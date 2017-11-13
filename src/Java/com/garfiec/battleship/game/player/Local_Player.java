@@ -50,4 +50,10 @@ public class Local_Player extends Player {
         // Forward move back to Game_Manager
         return gm.makeMove(player_type, x, y);
     }
+
+    // Tell GUI that a player has won
+    @Override
+    public void announceWin(Player_Type player) {
+        // Todo
+    }
 }

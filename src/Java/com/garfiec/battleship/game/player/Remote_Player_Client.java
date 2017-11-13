@@ -47,4 +47,10 @@ public class Remote_Player_Client extends Player {
         // Todo: read above comment
         return false;
     }
+
+    // Tell GUI that a player has won
+    @Override
+    public void announceWin(Player_Type player) {
+        // Todo
+    }
 }
