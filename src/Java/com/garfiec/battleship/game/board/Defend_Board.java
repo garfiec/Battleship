@@ -105,6 +105,10 @@ public class Defend_Board extends Map {
         return regions[cord.y][cord.x];
     }
 
+    public boolean isHit(Point cord) {
+        return regions[cord.y][cord.x].isHit();
+    }
+
     @Override
     public BoardType getType() {
         return type;

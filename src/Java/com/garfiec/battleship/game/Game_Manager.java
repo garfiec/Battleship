@@ -2,6 +2,7 @@ package Java.com.garfiec.battleship.game;
 
 import Java.com.garfiec.battleship.game.board.Attack_Board;
 import Java.com.garfiec.battleship.game.board.Defend_Board;
+import Java.com.garfiec.battleship.game.board.Region;
 import Java.com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.player.Local_Player;
@@ -119,6 +120,17 @@ public class Game_Manager extends Client {
 
     public Player_Type getCurrentTurn() {
         return currentTurn;
+    }
+
+    public boolean getRegionStatus(Player_Type player, byte x, byte y) {
+        // First check if the player actually made a hit to said position. (for security reasons)
+        if (attack_boards[player.index].madeMoveAt(new Point(x, y))) {
+            // Todo: Return whether or not region was attacked (to keep track of successfully hit areas)
+            // Probably something like defend_boards[otherPlayer.index].isHit()
+
+        }
+
+        return false;
     }
 
 }

@@ -28,4 +28,9 @@ public class Attack_Board extends Map {
     public BoardType getType() {
         return type;
     }
+
+    // Returns whether or not a move was made at position before
+    public boolean madeMoveAt(Point cord) {
+        return regions[cord.y][cord.x].isHit();
+    }
 }
