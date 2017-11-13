@@ -115,7 +115,9 @@ public class Game_Manager extends Client {
         gameInProgress = false;
         winner = player;
 
-        // Todo: notify players of win
+        for (Player p:players) {
+            p.announceWin(winner);
+        }
     }
 
     public Player_Type getCurrentTurn() {
