@@ -2,7 +2,6 @@ package Java.com.garfiec.battleship.game;
 
 import Java.com.garfiec.battleship.game.board.Attack_Board;
 import Java.com.garfiec.battleship.game.board.Defend_Board;
-import Java.com.garfiec.battleship.game.board.Region;
 import Java.com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.player.Local_Player;
@@ -18,11 +17,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Game_Manager extends Client {
     Player[] players = new Player[Game_Consts.NUM_PLAYERS];
 
-    private Defend_Board[] playerBoards = new Defend_Board[Game_Consts.NUM_PLAYERS];
-    private Attack_Board[] enemyBoards = new Attack_Board[Game_Consts.NUM_PLAYERS];
+    private Defend_Board[] defend_boards = new Defend_Board[Game_Consts.NUM_PLAYERS];
+    private Attack_Board[] attack_boards = new Attack_Board[Game_Consts.NUM_PLAYERS];
 
-    boolean gameInProgress = false;
-    Player_Type currentTurn;
+    private boolean gameInProgress = false;
+    private Player_Type currentTurn;
+    private Player_Type winner;
 
     boolean setupMode; // Allow users to add ships
 
@@ -38,11 +38,11 @@ public class Game_Manager extends Client {
         players[Player_Type.LOCAL.index]    = new Local_Player(this);
         players[Player_Type.REMOTE.index]   = new Remote_Player_Server(this);
 
-        playerBoards[Player_Type.LOCAL.index] = new Defend_Board();
-        playerBoards[Player_Type.REMOTE.index] = new Defend_Board();
+        defend_boards[Player_Type.LOCAL.index] = new Defend_Board();
+        defend_boards[Player_Type.REMOTE.index] = new Defend_Board();
 
-        enemyBoards[Player_Type.LOCAL.index] = new Attack_Board();
-        enemyBoards[Player_Type.REMOTE.index] = new Attack_Board();
+        attack_boards[Player_Type.LOCAL.index] = new Attack_Board();
+        attack_boards[Player_Type.REMOTE.index] = new Attack_Board();
 
         gameInProgress = false;
 
@@ -73,31 +73,48 @@ public class Game_Manager extends Client {
     public boolean addShip(Player player, Ships ship, Ship_Orientation direction, Point cord) {
         if (!setupMode) { return false; }
 
-        return playerBoards[player.getPlayerType().index].addShip(ship, direction, cord);
+        return defend_boards[player.getPlayerType().index].addShip(ship, direction, cord);
     }
 
-    // Processes move
-    public boolean makeMove(Player_Type type, byte x, byte y) {
+    // Processes move. Return whether move was successful.
+    public boolean makeMove(Player_Type player, byte x, byte y) {
+        Player_Type otherPlayer;
+        if (player == Player_Type.LOCAL)
+            otherPlayer = Player_Type.REMOTE;
+        else
+            otherPlayer = Player_Type.LOCAL;
+
+        // Check if game is currently in progress
+        if (!gameInProgress) { return false; }
+
         // Check if allowed (if not, return false)
-        if (type != currentTurn) { return false; }
+        if (player != currentTurn) { return false; }
 
         // Make move
+        boolean attackSuccess = defend_boards[otherPlayer.index].attack(new Point(x, y));
+        attack_boards[player.index].attack(new Point(x, y), attackSuccess);
 
         // Check if won
+        if (!defend_boards[otherPlayer.index].isAlive()) {
+            declareWinner(player);
+            return true;
+        }
 
-        // else Alternate player
-        if (currentTurn == Player_Type.LOCAL) {
-            currentTurn = Player_Type.REMOTE;
-        }
-        else {
-            currentTurn = Player_Type.LOCAL;
-        }
+        // Not won yet, alternate player
+        currentTurn = otherPlayer;
 
         // Tell other player to make move
         players[currentTurn.index].playersTurn();
 
         // Move successful
         return true;
+    }
+
+    private void declareWinner(Player_Type player) {
+        gameInProgress = false;
+        winner = player;
+
+        // Todo: notify players of win
     }
 
     public Player_Type getCurrentTurn() {

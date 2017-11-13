@@ -1,7 +1,12 @@
 package Java.com.garfiec.battleship.game;
 
+import Java.com.garfiec.battleship.game.board.ships.Ship_Orientation;
+import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.ui.Battleship_Display;
+import Java.com.garfiec.battleship.game.util.Player_Type;
+
+import java.awt.*;
 
 // Generic Client
 public class Client {
@@ -25,8 +30,23 @@ public class Client {
     public Player getLocalPlayer() {
         return new Player() {
             @Override
+            public Player_Type getPlayerType() {
+                return null;
+            }
+
+            @Override
             public void setUIHook(Battleship_Display ui) {
 
+            }
+
+            @Override
+            public void doAddships() {
+
+            }
+
+            @Override
+            public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
+                return false;
             }
 
             @Override
