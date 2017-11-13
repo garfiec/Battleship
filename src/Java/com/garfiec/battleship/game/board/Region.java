@@ -6,9 +6,9 @@ public class Region {
     // Todo: Idk what needs to be stored here yet.
     // This is the individual cells on the map
 
-    Ships   ship;
-    boolean occupancyStatus;
-    boolean hitStatus;
+    protected Ships   ship;
+    protected boolean occupancyStatus;
+    protected boolean hitStatus;
 
     public Region() {
         this.occupancyStatus = false;

@@ -5,7 +5,7 @@ import Java.com.garfiec.battleship.game.player.Remote_Player_Client;
 
 public class Remote_Client extends Client {
 
-    Player remote_player;
+    private Player remote_player;
 
     public Remote_Client() {
         super();

@@ -12,10 +12,10 @@ public class Defend_Board extends Map {
     // protected Region[][] regions = new Region[rows (y)][cols (x)];
 
     // Keeps track of # of ships existing on the board
-    HashMap<Ships, Integer> ship_roster = new HashMap<>();
+    private HashMap<Ships, Integer> ship_roster = new HashMap<>();
 
     // Cache of ship regions not yet destroyed
-    HashSet<Point> active_regions = new HashSet<>();
+    private HashSet<Point> active_regions = new HashSet<>();
 
     public Defend_Board() {
         type = BoardType.DEFEND_BOARD;

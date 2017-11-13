@@ -14,13 +14,13 @@ import java.awt.*;
 
 public class Battleship_Display extends JFrame {
     // Settings object
-    Game_Settings settings;
+    private Game_Settings settings;
 
     // Reference to client object controlling UI
-    Client game_client;
+    private Client game_client;
 
     // Reference to player object associated with GUI
-    Player player;
+    private Player player;
 
     public Battleship_Display()  {
         super(Game_Strings.GUI_TITLE);

@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 // Assumes to be the server (the local client)
 public class Game_Manager extends Client {
-    Player[] players = new Player[Game_Consts.NUM_PLAYERS];
+    private Player[] players = new Player[Game_Consts.NUM_PLAYERS];
 
     private Defend_Board[] defend_boards = new Defend_Board[Game_Consts.NUM_PLAYERS];
     private Attack_Board[] attack_boards = new Attack_Board[Game_Consts.NUM_PLAYERS];
@@ -25,7 +25,7 @@ public class Game_Manager extends Client {
     private Player_Type currentTurn;
     private Player_Type winner;
 
-    boolean setupMode; // Allow users to add ships
+    private boolean setupMode; // Allow users to add ships
 
     public Game_Manager() {
         super();

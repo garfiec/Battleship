@@ -58,6 +58,11 @@ public class Client {
             public boolean makeMove(byte x, byte y) {
                 return false;
             }
+
+            @Override
+            public void announceWin(Player_Type player) {
+
+            }
         };
     }
 

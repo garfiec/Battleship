@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Connection_Settings_Display extends JFrame{
 
-    Game_Settings settings;
+    private Game_Settings settings;
 
     public Connection_Settings_Display (Game_Settings settings) {
         super("Connection Settings");
