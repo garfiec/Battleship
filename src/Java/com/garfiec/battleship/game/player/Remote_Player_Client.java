@@ -1,6 +1,7 @@
 package Java.com.garfiec.battleship.game.player;
 
 import Java.com.garfiec.battleship.game.Remote_Client;
+import Java.com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.ui.Battleship_Display;
 import Java.com.garfiec.battleship.game.util.Player_Type;
@@ -8,11 +9,16 @@ import Java.com.garfiec.battleship.game.util.Player_Type;
 import java.awt.*;
 
 public class Remote_Player_Client extends Player {
-    Remote_Client cli;
+    private Remote_Client cli;
 
     public Remote_Player_Client(Remote_Client cli) {
         player_type = Player_Type.REMOTE;
         this.cli = cli;
+    }
+
+    @Override
+    public Player_Type getPlayerType() {
+        return player_type;
     }
 
     public void setUIHook(Battleship_Display ui) {
@@ -25,9 +31,9 @@ public class Remote_Player_Client extends Player {
 
     }
 
-    // Todo: send game_manager ship to add and where
+    // Todo: Transmit message to Remote_Player_Server the ship to add and where
     @Override
-    public boolean addShip(Ships ship, Point cord) {
+    public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
         return false;
     }
 

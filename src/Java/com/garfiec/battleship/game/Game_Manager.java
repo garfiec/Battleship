@@ -3,6 +3,8 @@ package Java.com.garfiec.battleship.game;
 import Java.com.garfiec.battleship.game.board.Attack_Board;
 import Java.com.garfiec.battleship.game.board.Defend_Board;
 import Java.com.garfiec.battleship.game.board.Region;
+import Java.com.garfiec.battleship.game.board.ships.Ship_Orientation;
+import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.player.Local_Player;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.player.Remote_Player_Server;
@@ -65,6 +67,13 @@ public class Game_Manager extends Client {
     @Override
     public Player getLocalPlayer() {
         return players[Player_Type.LOCAL.index];
+    }
+
+    // Adds players' ships to the board in setup mode. Returns whether successful
+    public boolean addShip(Player player, Ships ship, Ship_Orientation direction, Point cord) {
+        if (!setupMode) { return false; }
+
+        return playerBoards[player.getPlayerType().index].addShip(ship, direction, cord);
     }
 
     // Processes move
