@@ -34,6 +34,7 @@ public class Remote_Player_Client extends Player {
     // Todo: Transmit message to Remote_Player_Server the ship to add and where
     @Override
     public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
+        System.out.println("Remote player added ship. Todo: transmit data to server.");
         return false;
     }
 
@@ -45,6 +46,7 @@ public class Remote_Player_Client extends Player {
     // Transmit message back via socket
     public boolean makeMove(byte x, byte y) {
         // Todo: read above comment
+        System.out.println("Remote player made move. Todo: transmit move to server.");
         return false;
     }
 

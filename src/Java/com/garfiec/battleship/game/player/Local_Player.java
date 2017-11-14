@@ -32,9 +32,10 @@ public class Local_Player extends Player {
 
     }
 
-    // Todo: send game_manager ship to add and where
+    // Send game_manager ship to add and where
     @Override
     public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
+        System.out.println("Local player added ship");
         return gm.addShip(this, ship, direction, cord);
     }
 
@@ -48,6 +49,7 @@ public class Local_Player extends Player {
     @Override
     public boolean makeMove(byte x, byte y) {
         // Forward move back to Game_Manager
+        System.out.println("Local player made move");
         return gm.makeMove(player_type, x, y);
     }
 

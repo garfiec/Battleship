@@ -5,6 +5,9 @@ import javax.swing.*;
 import Java.com.garfiec.battleship.game.Client;
 import Java.com.garfiec.battleship.game.Game_Manager;
 import Java.com.garfiec.battleship.game.Remote_Client;
+import Java.com.garfiec.battleship.game.board.Map;
+import Java.com.garfiec.battleship.game.board.ships.Ship_Orientation;
+import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
 import Java.com.garfiec.battleship.game.ui.etc.UI_About;
@@ -23,14 +26,19 @@ public class Battleship_Display extends JFrame {
     // Reference to player object associated with GUI
     private Player player;
 
+    // Game vars
+    private Ship_Orientation    toAdd_ShipOrientation;
+    private Ships               toAdd_Ship;
+
     public Battleship_Display()  {
         super(Game_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
 
         // Set panes
         JPanel boardPanel = new JPanel(new BorderLayout());
-        UI_Board defendPanel = new UI_Board();
-        UI_Board attackPanel = new UI_Board();
+        UI_Board defendPanel = new UI_Board(Map.BoardType.DEFEND_BOARD);
+        UI_Board attackPanel = new UI_Board(Map.BoardType.ATTACK_BOARD);
+
         boardPanel.add(defendPanel, BorderLayout.LINE_START);
         boardPanel.add(attackPanel,BorderLayout.LINE_END);
         add(boardPanel, BorderLayout.CENTER);
@@ -184,7 +192,6 @@ public class Battleship_Display extends JFrame {
         menu.addSeparator();
 
         menuItem = new JMenuItem("About");
-//        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(this, UI_Strings.ABOUT));
         menuItem.addActionListener(e -> new JDialog(new UI_About()));
         menu.add(menuItem);
 
@@ -192,27 +199,30 @@ public class Battleship_Display extends JFrame {
     }
 
     private void resetGUI() {
-        // Todo: reset the gui to starting state
+        // Todo: reset the gui to default starting state
+        toAdd_ShipOrientation = Ship_Orientation.HORIZONTAL;
+        toAdd_Ship = Ships.NONE;
     }
 
-    // Todo: Create view for player's attack board and defend board.
-    // Todo: onRegionClick pass attack coordinate to client -> player.makeMove (client passes coordinates to player, which makes a move)
     private class UI_Board extends JPanel {
 
-        public UI_Board() { //*** TODO add attack/defense board as param TODO ***//
+        public UI_Board(Map.BoardType board_type) {
             super();
             setLayout(new GridLayout(9,9));
             for(int row = 0; row < 9; row++) {
                 for(int col = 0; col < 9; col++) {
-                    //add(new Cell(row,col));
                     final byte x = (byte) col;
                     final byte y = (byte) row;
 
                     JButton region = new JButton();
                     region.addActionListener(e -> {
-                        // Todo: Differentiate between attack/defend
-                        // Make Move
-                        player.makeMove(x, y);
+                        if (board_type == Map.BoardType.ATTACK_BOARD) {
+                            // Make Move
+                            player.makeMove(x, y);
+                        } else if (board_type == Map.BoardType.DEFEND_BOARD) {
+                            // Add ship
+                            player.addShip(toAdd_Ship, toAdd_ShipOrientation, new Point(x, y));
+                        }
 
                         // Update logic
                         // Todo: Update graphics for cell
