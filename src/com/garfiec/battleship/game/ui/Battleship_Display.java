@@ -229,7 +229,9 @@ public class Battleship_Display extends JFrame {
             ArrayList<String> ship_names = new ArrayList<>();
 
             for (Ships s:Ships.values()) {
-                ship_names.add(s.getName());
+                if (s.getName() != "" && s.getName() != "Generic") {
+                    ship_names.add(s.getName());
+                }
             }
 
             JList ships_list = new JList(ship_names.toArray());
@@ -241,6 +243,8 @@ public class Battleship_Display extends JFrame {
                     }
                 }
             });
+
+            ships_list.setSelectedIndex(0);
 
             panel.add(ships_list, BorderLayout.CENTER);
 
@@ -268,6 +272,8 @@ public class Battleship_Display extends JFrame {
                     }
                 }
             });
+
+            orientation_list.setSelectedIndex(0);
 
             panel.add(orientation_list, BorderLayout.CENTER);
 
