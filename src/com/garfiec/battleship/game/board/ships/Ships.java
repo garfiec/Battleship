@@ -19,7 +19,7 @@ public enum Ships {
         this.quantity = quantity;
     }
 
-    public Ships getShip(String type) {
+    public static Ships getShip(String type) {
         for (Ships s:Ships.values()) {
             if (s.type.equals(type)) {
                 return s;

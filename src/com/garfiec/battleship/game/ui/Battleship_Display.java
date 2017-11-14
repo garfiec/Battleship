@@ -233,6 +233,15 @@ public class Battleship_Display extends JFrame {
             }
 
             JList ships_list = new JList(ship_names.toArray());
+            ships_list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);;
+            ships_list.addListSelectionListener(e -> {
+                if (e.getValueIsAdjusting()) {
+                    if (ships_list.getSelectedIndex() != -1) {
+                        toAdd_Ship = Ships.getShip(ships_list.getSelectedValue().toString());
+                    }
+                }
+            });
+
             panel.add(ships_list, BorderLayout.CENTER);
 
             return panel;
@@ -247,10 +256,19 @@ public class Battleship_Display extends JFrame {
             ArrayList<String> directions = new ArrayList<>();
 
             for (Ship_Orientation d:Ship_Orientation.values()) {
-                directions.add(d.toString());
+                directions.add(d.getDirectionName());
             }
 
             JList orientation_list = new JList(directions.toArray());
+            orientation_list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            orientation_list.addListSelectionListener(e -> {
+                if (e.getValueIsAdjusting()) {
+                    if (orientation_list.getSelectedIndex() != -1) {
+                        toAdd_ShipOrientation = Ship_Orientation.getOrientation(orientation_list.getSelectedValue().toString());
+                    }
+                }
+            });
+
             panel.add(orientation_list, BorderLayout.CENTER);
 
             return panel;
