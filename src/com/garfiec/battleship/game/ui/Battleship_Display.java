@@ -84,6 +84,8 @@ public class Battleship_Display extends JFrame {
         }
 
         player = game_client.getLocalPlayer();
+        this.setTitle(Game_Strings.GUI_TITLE + " | Player: " + player.getPlayerType().toString());
+        
         return true;
     }
 
