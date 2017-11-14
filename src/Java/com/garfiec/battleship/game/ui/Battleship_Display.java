@@ -1,6 +1,7 @@
 package Java.com.garfiec.battleship.game.ui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import Java.com.garfiec.battleship.game.Client;
 import Java.com.garfiec.battleship.game.Game_Manager;
@@ -11,6 +12,7 @@ import Java.com.garfiec.battleship.game.board.ships.Ships;
 import Java.com.garfiec.battleship.game.player.Player;
 import Java.com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
 import Java.com.garfiec.battleship.game.ui.etc.UI_About;
+import Java.com.garfiec.battleship.game.util.Game_Consts;
 import Java.com.garfiec.battleship.game.util.Game_Settings;
 import Java.com.garfiec.battleship.game.util.Game_Strings;
 
@@ -205,17 +207,26 @@ public class Battleship_Display extends JFrame {
     }
 
     private class UI_Board extends JPanel {
+        private JButton[][] regions = new JButton[Game_Consts.ROWS][Game_Consts.COLUMNS]; // [y][x]
 
-        public UI_Board(Map.BoardType board_type) {
-            super();
-            setLayout(new GridLayout(9,9));
-            for(int row = 0; row < 9; row++) {
-                for(int col = 0; col < 9; col++) {
+        private Map.BoardType board_type;
+        private String board_name = "None";
+
+        private JPanel createBoard() {
+            JPanel board_panel = new JPanel();
+            board_panel.setLayout(new GridLayout(Game_Consts.ROWS, Game_Consts.COLUMNS, UI_Constants.TILE_GAP_H, UI_Constants.TILE_GAP_V));
+            board_panel.setBorder(new EmptyBorder(5, 5, 0, 5));
+
+            for(int col = 0; col < Game_Consts.COLUMNS; col++) {
+                for(int row = 0; row < Game_Consts.ROWS; row++) {
                     final byte x = (byte) col;
                     final byte y = (byte) row;
 
                     JButton region = new JButton();
+                    region.setBackground(new Color(214, 230, 255));
+
                     region.addActionListener(e -> {
+                        // Respond to click
                         if (board_type == Map.BoardType.ATTACK_BOARD) {
                             // Make Move
                             player.makeMove(x, y);
@@ -227,9 +238,47 @@ public class Battleship_Display extends JFrame {
                         // Update logic
                         // Todo: Update graphics for cell
                     });
-                    add(region);
+                    regions[y][x] = region;
+                    board_panel.add(region);
                 }
             } // end loop
+            return board_panel;
+        }
+
+        private JPanel createBoardLabel() {
+            JPanel label_panel = new JPanel();
+            label_panel.setLayout(new BorderLayout());
+            label_panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+            JLabel label = new JLabel(board_name);
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setVerticalAlignment(JLabel.CENTER);
+            label_panel.add(label, BorderLayout.CENTER);
+
+            return label_panel;
+        }
+
+        private void createUI() {
+            this.setLayout(new BorderLayout());
+
+            JPanel board = createBoard();
+            this.add(board, BorderLayout.CENTER);
+
+            JPanel board_label = createBoardLabel();
+            this.add(board_label, BorderLayout.SOUTH);
+        }
+
+        public UI_Board(Map.BoardType board_type) {
+            super();
+            this.board_type = board_type;
+            if (board_type == Map.BoardType.ATTACK_BOARD) {
+                board_name = "Attack Board";
+            }
+            else if (board_type == Map.BoardType.DEFEND_BOARD) {
+                board_name = "Defend Board";
+            }
+
+            createUI();
         }
 
     }
