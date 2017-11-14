@@ -29,4 +29,8 @@ public enum Ships {
         // Ship type does not exist
         return null;
     }
+
+    public String getName() {
+        return type;
+    }
 }

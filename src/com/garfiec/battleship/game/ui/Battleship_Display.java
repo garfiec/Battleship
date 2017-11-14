@@ -17,6 +17,7 @@ import com.garfiec.battleship.game.util.Game_Settings;
 import com.garfiec.battleship.game.util.Game_Strings;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Battleship_Display extends JFrame {
     // Settings object
@@ -36,18 +37,13 @@ public class Battleship_Display extends JFrame {
         super(Game_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
 
-        // Set panes
-        JPanel boardPanel = new JPanel(new BorderLayout());
-        UI_Board defendPanel = new UI_Board(Map.BoardType.DEFEND_BOARD);
-        UI_Board attackPanel = new UI_Board(Map.BoardType.ATTACK_BOARD);
-
-        boardPanel.add(defendPanel, BorderLayout.LINE_START);
-        boardPanel.add(attackPanel,BorderLayout.LINE_END);
-        add(boardPanel, BorderLayout.CENTER);
-
         // Initialization
         settings = new Game_Settings();
+
         createMenu();
+        createUI();
+        this.setBackground(UI_Constants.BG_COLOR);
+
         showClientPicker();
 
         this.setLocation(100, 100); // Temp fix to spawn issue
@@ -55,6 +51,23 @@ public class Battleship_Display extends JFrame {
         setSize(UI_Constants.WIDTH, UI_Constants.HEIGHT);
         setVisible(true);
 
+    }
+
+    private void createUI() {
+        // Set panes
+        JPanel boardPanel = new JPanel();
+        BoxLayout layout = new BoxLayout(boardPanel, BoxLayout.LINE_AXIS);
+        boardPanel.setLayout(layout);
+
+        Board_UI defendPanel = new Board_UI(Map.BoardType.DEFEND_BOARD);
+        Board_UI attackPanel = new Board_UI(Map.BoardType.ATTACK_BOARD);
+        Controls_UI controls = new Controls_UI();
+
+        boardPanel.add(defendPanel);
+        boardPanel.add(attackPanel);
+        boardPanel.add(controls);
+
+        this.add(boardPanel, BorderLayout.CENTER);
     }
 
     private boolean pickClient(Client.Client_Type type) {
@@ -206,7 +219,55 @@ public class Battleship_Display extends JFrame {
         toAdd_Ship = Ships.NONE;
     }
 
-    private class UI_Board extends JPanel {
+    private class Controls_UI extends JPanel {
+        private JPanel createShipsControls() {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+            panel.setBackground(UI_Constants.CONTROLS_BG_COLOR);
+
+            ArrayList<String> ship_names = new ArrayList<>();
+
+            for (Ships s:Ships.values()) {
+                ship_names.add(s.getName());
+            }
+
+            JList ships_list = new JList(ship_names.toArray());
+            panel.add(ships_list, BorderLayout.CENTER);
+
+            return panel;
+        }
+
+        private JPanel createOrientationsControls() {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+            panel.setBackground(UI_Constants.CONTROLS_BG_COLOR);
+
+            ArrayList<String> directions = new ArrayList<>();
+
+            for (Ship_Orientation d:Ship_Orientation.values()) {
+                directions.add(d.toString());
+            }
+
+            JList orientation_list = new JList(directions.toArray());
+            panel.add(orientation_list, BorderLayout.CENTER);
+
+            return panel;
+        }
+
+        public Controls_UI() {
+            super();
+            this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+            this.setBorder(new EmptyBorder(5, 5, 5, 5));
+            this.setBackground(UI_Constants.CONTROLS_BG_COLOR);
+
+            add(createShipsControls());
+            add(createOrientationsControls());
+        }
+    }
+
+    private class Board_UI extends JPanel {
         private JButton[][] regions = new JButton[Game_Consts.ROWS][Game_Consts.COLUMNS]; // [y][x]
 
         private Map.BoardType board_type;
@@ -216,6 +277,7 @@ public class Battleship_Display extends JFrame {
             JPanel board_panel = new JPanel();
             board_panel.setLayout(new GridLayout(Game_Consts.ROWS, Game_Consts.COLUMNS, UI_Constants.TILE_GAP_H, UI_Constants.TILE_GAP_V));
             board_panel.setBorder(new EmptyBorder(5, 5, 0, 5));
+            board_panel.setBackground(UI_Constants.BG_COLOR);
 
             for(int col = 0; col < Game_Consts.COLUMNS; col++) {
                 for(int row = 0; row < Game_Consts.ROWS; row++) {
@@ -223,7 +285,7 @@ public class Battleship_Display extends JFrame {
                     final byte y = (byte) row;
 
                     JButton region = new JButton();
-                    region.setBackground(new Color(214, 230, 255));
+                    region.setBackground(new Color(6, 61, 163));
 
                     region.addActionListener(e -> {
                         // Respond to click
@@ -248,12 +310,14 @@ public class Battleship_Display extends JFrame {
         private JPanel createBoardLabel() {
             JPanel label_panel = new JPanel();
             label_panel.setLayout(new BorderLayout());
-            label_panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+            label_panel.setBorder(new EmptyBorder(7, 5, 7, 5));
+            label_panel.setBackground(UI_Constants.BG_COLOR);
 
             JLabel label = new JLabel(board_name);
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalAlignment(JLabel.CENTER);
             label_panel.add(label, BorderLayout.CENTER);
+            label.setForeground(UI_Constants.BOARD_LABEL_COLOR);
 
             return label_panel;
         }
@@ -268,9 +332,11 @@ public class Battleship_Display extends JFrame {
             this.add(board_label, BorderLayout.SOUTH);
         }
 
-        public UI_Board(Map.BoardType board_type) {
+        public Board_UI(Map.BoardType board_type) {
             super();
             this.board_type = board_type;
+            this.setBackground(UI_Constants.BG_COLOR);
+
             if (board_type == Map.BoardType.ATTACK_BOARD) {
                 board_name = "Attack Board";
             }
