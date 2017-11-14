@@ -44,7 +44,7 @@ public class Remote_Player_Client extends Player {
     }
 
     // Transmit message back via socket
-    public boolean makeMove(byte x, byte y) {
+    public boolean makeMove(Point location) {
         // Todo: read above comment
         System.out.println("Remote player made move. Todo: transmit move to server.");
         return false;

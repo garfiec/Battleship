@@ -77,7 +77,7 @@ public class Game_Manager extends Client {
     }
 
     // Processes move. Return whether move was successful.
-    public boolean makeMove(Player_Type player, byte x, byte y) {
+    public boolean makeMove(Player_Type player, Point location) {
         Player_Type otherPlayer;
         if (player == Player_Type.LOCAL)
             otherPlayer = Player_Type.REMOTE;
@@ -91,8 +91,8 @@ public class Game_Manager extends Client {
         if (player != currentTurn) { return false; }
 
         // Make move
-        boolean attackSuccess = defend_boards[otherPlayer.index].attack(new Point(x, y));
-        attack_boards[player.index].attack(new Point(x, y), attackSuccess);
+        boolean attackSuccess = defend_boards[otherPlayer.index].attack(location);
+        attack_boards[player.index].attack(location, attackSuccess);
 
         // Check if won
         if (!defend_boards[otherPlayer.index].isAlive()) {

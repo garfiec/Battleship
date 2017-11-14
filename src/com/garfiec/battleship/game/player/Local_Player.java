@@ -34,9 +34,9 @@ public class Local_Player extends Player {
 
     // Send game_manager ship to add and where
     @Override
-    public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
-        System.out.println("Local player added ship (" + cord.x + ", " + cord.y + ")");
-        return gm.addShip(this, ship, direction, cord);
+    public boolean addShip(Ships ship, Ship_Orientation direction, Point location) {
+        System.out.println("Local player added ship (" + location.x + ", " + location.y + ")");
+        return gm.addShip(this, ship, direction, location);
     }
 
     // Game manager's hook to notify turn.
@@ -47,10 +47,10 @@ public class Local_Player extends Player {
 
     // GUI calls makeMove and returns whether successful
     @Override
-    public boolean makeMove(byte x, byte y) {
+    public boolean makeMove(Point location) {
         // Forward move back to Game_Manager
-        System.out.println("Local player made move (" + x + ", " + y + ")");
-        return gm.makeMove(player_type, x, y);
+        System.out.println("Local player made move (" + location.x + ", " + location.y + ")");
+        return gm.makeMove(player_type, location);
     }
 
     // Tell GUI that a player has won

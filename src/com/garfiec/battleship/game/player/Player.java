@@ -17,6 +17,6 @@ public abstract class Player {
     public abstract void doAddships();
     public abstract boolean addShip(Ships ship, Ship_Orientation direction, Point cord);
     public abstract void playersTurn();
-    public abstract boolean makeMove(byte x, byte y);
+    public abstract boolean makeMove(Point location);
     public abstract void announceWin(Player_Type player);
 }

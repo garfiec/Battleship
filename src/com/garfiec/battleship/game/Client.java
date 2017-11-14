@@ -55,7 +55,7 @@ public class Client {
             }
 
             @Override
-            public boolean makeMove(byte x, byte y) {
+            public boolean makeMove(Point location) {
                 return false;
             }
 

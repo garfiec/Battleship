@@ -307,8 +307,7 @@ public class Battleship_Display extends JFrame {
 
             for(int row = 0; row < Game_Consts.ROWS; row++) {
                 for(int col = 0; col < Game_Consts.COLUMNS; col++) {
-                    final byte x = (byte) col;
-                    final byte y = (byte) row;
+                    final Point location = new Point(col, row);
 
                     JButton region = new JButton();
                     region.setBackground(new Color(6, 61, 163));
@@ -317,16 +316,16 @@ public class Battleship_Display extends JFrame {
                         // Respond to click
                         if (board_type == Map.BoardType.ATTACK_BOARD) {
                             // Make Move
-                            player.makeMove(x, y);
+                            player.makeMove(location);
                         } else if (board_type == Map.BoardType.DEFEND_BOARD) {
                             // Add ship
-                            player.addShip(toAdd_Ship, toAdd_ShipOrientation, new Point(x, y));
+                            player.addShip(toAdd_Ship, toAdd_ShipOrientation, location);
                         }
 
                         // Update logic
                         // Todo: Update graphics for cell
                     });
-                    regions[y][x] = region;
+                    regions[location.y][location.x] = region;
                     board_panel.add(region);
                 }
             } // end loop

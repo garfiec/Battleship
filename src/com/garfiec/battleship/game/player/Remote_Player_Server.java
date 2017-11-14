@@ -45,8 +45,8 @@ public class Remote_Player_Server extends Player {
 
     // When received response from socket, passes move to game manager (Receive and pass back)
     @Override
-    public boolean makeMove(byte x, byte y) {
-        return gm.makeMove(player_type, x, y);
+    public boolean makeMove(Point location) {
+        return gm.makeMove(player_type, location);
     }
 
     // Transmit message to client that a player has won
