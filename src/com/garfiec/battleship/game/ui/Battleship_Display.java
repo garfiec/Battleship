@@ -85,7 +85,7 @@ public class Battleship_Display extends JFrame {
 
         player = game_client.getLocalPlayer();
         this.setTitle(Game_Strings.GUI_TITLE + " | Player: " + player.getPlayerType().toString());
-        
+
         return true;
     }
 
@@ -305,8 +305,8 @@ public class Battleship_Display extends JFrame {
             board_panel.setBorder(new EmptyBorder(5, 5, 0, 5));
             board_panel.setBackground(UI_Constants.BG_COLOR);
 
-            for(int col = 0; col < Game_Consts.COLUMNS; col++) {
-                for(int row = 0; row < Game_Consts.ROWS; row++) {
+            for(int row = 0; row < Game_Consts.ROWS; row++) {
+                for(int col = 0; col < Game_Consts.COLUMNS; col++) {
                     final byte x = (byte) col;
                     final byte y = (byte) row;
 
