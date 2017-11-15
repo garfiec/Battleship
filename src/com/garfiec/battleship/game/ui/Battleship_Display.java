@@ -227,11 +227,11 @@ public class Battleship_Display extends JFrame {
         menuBar.add(menu);
 
         menuItem = new JMenuItem("How to play");
-        menuItem.addActionListener(e -> new MessageBox(UI_Strings.HOW_TO_PLAY_TITLE, UI_Strings.HOW_TO_PLAY));
+        menuItem.addActionListener(e -> new MessageBox(UI_Strings.HOW_TO_PLAY_TITLE, UI_Strings.HOW_TO_PLAY, UI_Constants.HOW_TO_PLAY_SIZE));
         menu.add(menuItem);
 
         menuItem = new JMenuItem("How to use");
-        menuItem.addActionListener(e -> new MessageBox(UI_Strings.HOW_TO_USE_TITLE, UI_Strings.HOW_TO_USE));
+        menuItem.addActionListener(e -> new MessageBox(UI_Strings.HOW_TO_USE_TITLE, UI_Strings.HOW_TO_USE, UI_Constants.HOW_TO_USE_SIZE));
         menu.add(menuItem);
 
         menu.addSeparator();
