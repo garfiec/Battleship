@@ -218,7 +218,7 @@ public class Battleship_Display extends JFrame {
     private void resetGUI() {
         // Todo: reset the gui to default starting state
         toAdd_ShipOrientation = Ship_Orientation.HORIZONTAL;
-        toAdd_Ship = Ships.NONE;
+        toAdd_Ship = Ships.AIRCRAFT_CARRIER;
     }
 
     private class Controls_UI extends JPanel {
@@ -246,6 +246,7 @@ public class Battleship_Display extends JFrame {
                 }
             });
 
+            // Set default
             ships_list.setSelectedIndex(0);
 
             panel.add(ships_list, BorderLayout.CENTER);
@@ -275,6 +276,7 @@ public class Battleship_Display extends JFrame {
                 }
             });
 
+            // Set default
             orientation_list.setSelectedIndex(0);
 
             panel.add(orientation_list, BorderLayout.CENTER);

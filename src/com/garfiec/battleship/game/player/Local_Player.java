@@ -35,7 +35,7 @@ public class Local_Player extends Player {
     // Send game_manager ship to add and where
     @Override
     public boolean addShip(Ships ship, Ship_Orientation direction, Point location) {
-        System.out.println("Local player added ship (" + location.x + ", " + location.y + ")");
+        System.out.println("Local player added ship (" + location.x + ", " + location.y + ") Direction: " + direction.direction_name + " Ship: " + ship.getName());
         return gm.addShip(this, ship, direction, location);
     }
 
