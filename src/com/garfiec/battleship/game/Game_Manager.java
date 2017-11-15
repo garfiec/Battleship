@@ -104,17 +104,25 @@ public class Game_Manager extends Client {
 
     // Processes move. Return whether move was successful.
     public boolean makeMove(Player_Type player, Point location) {
-        Player_Type otherPlayer;
-        if (player == Player_Type.LOCAL)
-            otherPlayer = Player_Type.REMOTE;
-        else
-            otherPlayer = Player_Type.LOCAL;
+        Player_Type otherPlayer = getOtherPlayer(player);
 
         // Check if game is currently in progress
-        if (!gameInProgress) { return false; }
+        if (!gameInProgress) {
+            tell(player, Game_Strings.MOVE_ERROR_GAME_NO_GAME);
+            return false;
+        }
+
+        // Check if game is currently in setup mode
+        if (setupMode) {
+            tell(player, Game_Strings.MOVE_ERROR_GAME_NOT_STARTED);
+            return false;
+        }
 
         // Check if allowed (if not, return false)
-        if (player != currentTurn) { return false; }
+        if (player != currentTurn) {
+            tell(player, Game_Strings.MOVE_ERROR_NOT_TURN);
+            return false;
+        }
 
         // Make move
         boolean attackSuccess = defend_boards[otherPlayer.index].attack(location);
@@ -130,10 +138,30 @@ public class Game_Manager extends Client {
         currentTurn = otherPlayer;
 
         // Tell other player to make move
-        players[currentTurn.index].playersTurn();
+        //players[currentTurn.index].playersTurn();
+        tell(currentTurn, Game_Strings.NOTIFY_PLAYER_TURN);
+
+        // Tell original player it's the other player's turn now
+        tell(player, Game_Strings.NOTIFY_TURN_OTHER);
 
         // Move successful
         return true;
+    }
+
+    private Player_Type getOtherPlayer(Player_Type player) {
+        if (player == Player_Type.LOCAL)
+            return Player_Type.REMOTE;
+        else
+            return Player_Type.LOCAL;
+    }
+
+    // Sends private message to player
+    private void tell(Player player, String message) {
+        player.setStatus(message);
+    }
+
+    private void tell(Player_Type player_type, String message) {
+        players[player_type.index].setStatus(message);
     }
 
     // Sends message to all players' status bar
@@ -152,9 +180,12 @@ public class Game_Manager extends Client {
         gameInProgress = false;
         winner = player;
 
-        for (Player p:players) {
-            p.announceWin(winner);
-        }
+        tell(player, Game_Strings.STATUS_WIN);
+        tell(getOtherPlayer(player), Game_Strings.STATUS_OTHER_WON);
+//        for (Player p:players) {
+//            p.announceWin(winner); //Todo: Remove unused method
+//
+//        }
     }
 
     public Player_Type getCurrentTurn() {

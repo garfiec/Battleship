@@ -360,12 +360,17 @@ public class Battleship_Display extends JFrame {
 
                     JButton region = new JButton();
                     region.setBackground(UI_Constants.BLANK_COLOR);
+                    region.setForeground(UI_Constants.MISS_COLOR);
 
                     region.addActionListener(e -> {
                         // Respond to click
                         if (board_type == Map.BoardType.ATTACK_BOARD) {
                             // Make Move
-                            player.makeMove(location);
+                            boolean isSuccessful = player.makeMove(location);
+                            if (isSuccessful) {
+                                // Draw an X at location (color whether hit later)
+                                region.setText("X");
+                            }
                         } else if (board_type == Map.BoardType.DEFEND_BOARD) {
                             // Add ship
                             if (player.addShip(toAdd_Ship, toAdd_ShipOrientation, location)) {
