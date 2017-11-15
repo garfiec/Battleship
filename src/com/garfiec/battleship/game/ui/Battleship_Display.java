@@ -1,6 +1,8 @@
 package com.garfiec.battleship.game.ui;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.garfiec.battleship.game.Client;
@@ -29,6 +31,9 @@ public class Battleship_Display extends JFrame {
     // Reference to player object associated with GUI
     private Player player;
 
+    // Text communication to user
+    private JLabel statusLabel;
+
     // Game vars
     private Ship_Orientation    toAdd_ShipOrientation;
     private Ships               toAdd_Ship;
@@ -42,6 +47,8 @@ public class Battleship_Display extends JFrame {
 
         createMenu();
         createUI();
+        createStatusBar();
+
         this.setBackground(UI_Constants.BG_COLOR);
 
         showClientPicker();
@@ -68,6 +75,25 @@ public class Battleship_Display extends JFrame {
         boardPanel.add(controls);
 
         this.add(boardPanel, BorderLayout.CENTER);
+    }
+
+    private void createStatusBar() {
+        JPanel statusBar = new JPanel(new BorderLayout());
+        statusBar.setBorder(new BevelBorder(BevelBorder.RAISED));
+        statusBar.setBackground(UI_Constants.STATUS_BAR_COLOR);
+
+        JPanel padding = new JPanel(new BorderLayout());
+        padding.setBorder(new EmptyBorder(8, 5, 8, 5));
+        padding.setBackground(UI_Constants.STATUS_BAR_COLOR);
+        statusBar.add(padding, BorderLayout.CENTER);
+
+        statusLabel = new JLabel("test");
+        statusLabel.setHorizontalAlignment(JLabel.CENTER);
+        statusLabel.setVerticalAlignment(JLabel.CENTER);
+        statusLabel.setForeground(UI_Constants.STATUS_BAR_TEXT_COLOR);
+        padding.add(statusLabel, BorderLayout.CENTER);
+
+        this.add(statusBar, BorderLayout.SOUTH);
     }
 
     private boolean pickClient(Client.Client_Type type) {
@@ -215,6 +241,10 @@ public class Battleship_Display extends JFrame {
         this.setJMenuBar(menuBar);
     }
 
+    public void setStatus(String status) {
+        statusLabel.setText(status);
+    }
+
     private void resetGUI() {
         // Todo: reset the gui to default starting state
         toAdd_ShipOrientation = Ship_Orientation.HORIZONTAL;
@@ -356,7 +386,7 @@ public class Battleship_Display extends JFrame {
         private JPanel createBoardLabel() {
             JPanel label_panel = new JPanel();
             label_panel.setLayout(new BorderLayout());
-            label_panel.setBorder(new EmptyBorder(7, 5, 7, 5));
+            label_panel.setBorder(new EmptyBorder(7, 5, 10, 5));
             label_panel.setBackground(UI_Constants.BG_COLOR);
 
             JLabel label = new JLabel(board_name);

@@ -58,4 +58,9 @@ public class Local_Player extends Player {
     public void announceWin(Player_Type player) {
         // Todo
     }
+
+    @Override
+    public void setStatus(String status) {
+        ui.setStatus(status);
+    }
 }

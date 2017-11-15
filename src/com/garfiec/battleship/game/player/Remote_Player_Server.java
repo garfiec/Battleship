@@ -55,6 +55,12 @@ public class Remote_Player_Server extends Player {
         // Todo
     }
 
+    // Transmit data to remote client
+    @Override
+    public void setStatus(String status) {
+
+    }
+
     // Todo: Socket listening for moves. Implement runnable to prevent program from locking up while attempting to communicate
     // Todo: Translate incoming message into a move
     // Todo: Transmit message remote client

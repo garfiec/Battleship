@@ -19,4 +19,5 @@ public abstract class Player {
     public abstract void playersTurn();
     public abstract boolean makeMove(Point location);
     public abstract void announceWin(Player_Type player);
+    public abstract void setStatus(String status);
 }

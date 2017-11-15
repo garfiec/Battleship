@@ -55,4 +55,9 @@ public class Remote_Player_Client extends Player {
     public void announceWin(Player_Type player) {
         // Todo
     }
+
+    @Override
+    public void setStatus(String status) {
+        ui.setStatus(status);
+    }
 }
