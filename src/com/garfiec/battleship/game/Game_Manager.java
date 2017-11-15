@@ -64,8 +64,7 @@ public class Game_Manager extends Client {
 
         // Choose random player to start and start
         int randomPlayer = ThreadLocalRandom.current().nextInt(0, Game_Consts.NUM_PLAYERS);
-        // Todo: Tell player's turn
-        // players[randomPlayer].playersTurn();
+        notifyPlayerTurn(players[randomPlayer].getPlayerType());
     }
 
     @Override
@@ -138,15 +137,19 @@ public class Game_Manager extends Client {
         // Not won yet, alternate player
         currentTurn = otherPlayer;
 
-        // Tell other player to make move
-        //players[currentTurn.index].playersTurn();
-        tell(currentTurn, Game_Strings.NOTIFY_PLAYER_TURN);
-
-        // Tell original player it's the other player's turn now
-        tell(player, Game_Strings.NOTIFY_TURN_OTHER);
+        // Notify new turn
+        notifyPlayerTurn(currentTurn);
 
         // Move successful
         return true;
+    }
+
+    private void notifyPlayerTurn(Player_Type player) {
+        // Tell other player to make move
+        tell(player, Game_Strings.NOTIFY_PLAYER_TURN);
+
+        // Tell other player it's the other player's turn now
+        tell(getOtherPlayer(player), Game_Strings.NOTIFY_TURN_OTHER);
     }
 
     private Player_Type getOtherPlayer(Player_Type player) {
