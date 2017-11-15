@@ -136,6 +136,18 @@ public class Game_Manager extends Client {
         return true;
     }
 
+    // Sends message to all players' status bar
+    private void announce(String message) {
+        for (Player p:players) {
+            p.setStatus(message);
+        }
+    }
+
+    // Todo: Sends message box to all GUIs
+    private void broadcast(String message) {
+
+    }
+
     private void declareWinner(Player_Type player) {
         gameInProgress = false;
         winner = player;
