@@ -4,6 +4,7 @@ import com.garfiec.battleship.game.ui.UI_Strings;
 import com.garfiec.battleship.game.util.Game_Strings;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,12 +13,13 @@ import java.net.URL;
 
 public class UI_About extends JFrame {
     public UI_About() {
-        super("About " + Game_Strings.GUI_TITLE);
+        super("About " + UI_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
 
         JPanel pane = new JPanel();
         BoxLayout bl = new BoxLayout(pane, BoxLayout.Y_AXIS);
         pane.setLayout(bl);
+        pane.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JLabel contributor_label = new JLabel(UI_Strings.ABOUT);
         pane.add(contributor_label);
@@ -64,8 +66,9 @@ public class UI_About extends JFrame {
         pane.add(img_credit);
 
         getContentPane().add(pane, BorderLayout.CENTER);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(525, 475);
+        setSize(550, 500);
         setVisible(true);
     }
 }

@@ -13,6 +13,7 @@ import com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import com.garfiec.battleship.game.board.ships.Ships;
 import com.garfiec.battleship.game.player.Player;
 import com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
+import com.garfiec.battleship.game.ui.etc.MessageBox;
 import com.garfiec.battleship.game.ui.etc.UI_About;
 import com.garfiec.battleship.game.util.Game_Consts;
 import com.garfiec.battleship.game.util.Game_Settings;
@@ -39,7 +40,7 @@ public class Battleship_Display extends JFrame {
     private Ships               toAdd_Ship;
 
     public Battleship_Display()  {
-        super(Game_Strings.GUI_TITLE);
+        super(UI_Strings.GUI_TITLE);
         getContentPane().setLayout(new BorderLayout());
 
         // Initialization
@@ -111,7 +112,7 @@ public class Battleship_Display extends JFrame {
 
         player = game_client.getLocalPlayer();
         player.setUIHook(this);
-        this.setTitle(Game_Strings.GUI_TITLE + " | Player: " + player.getPlayerType().toString());
+        this.setTitle(UI_Strings.GUI_TITLE + " | Player: " + player.getPlayerType().toString());
 
         return true;
     }
@@ -226,11 +227,11 @@ public class Battleship_Display extends JFrame {
         menuBar.add(menu);
 
         menuItem = new JMenuItem("How to play");
-        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(this, UI_Strings.HOW_TO_PLAY));
+        menuItem.addActionListener(e -> new MessageBox(UI_Strings.HOW_TO_PLAY_TITLE, UI_Strings.HOW_TO_PLAY));
         menu.add(menuItem);
 
         menuItem = new JMenuItem("How to use");
-        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(this, UI_Strings.HOW_TO_USE));
+        menuItem.addActionListener(e -> new MessageBox(UI_Strings.HOW_TO_USE_TITLE, UI_Strings.HOW_TO_USE));
         menu.add(menuItem);
 
         menu.addSeparator();
