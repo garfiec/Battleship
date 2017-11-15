@@ -64,7 +64,8 @@ public class Game_Manager extends Client {
 
         // Choose random player to start and start
         int randomPlayer = ThreadLocalRandom.current().nextInt(0, Game_Consts.NUM_PLAYERS);
-        players[randomPlayer].playersTurn();
+        // Todo: Tell player's turn
+        // players[randomPlayer].playersTurn();
     }
 
     @Override
@@ -182,10 +183,6 @@ public class Game_Manager extends Client {
 
         tell(player, Game_Strings.STATUS_WIN);
         tell(getOtherPlayer(player), Game_Strings.STATUS_OTHER_WON);
-//        for (Player p:players) {
-//            p.announceWin(winner); //Todo: Remove unused method
-//
-//        }
     }
 
     public Player_Type getCurrentTurn() {

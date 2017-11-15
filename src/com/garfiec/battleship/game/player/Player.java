@@ -15,10 +15,7 @@ public abstract class Player {
 
     public abstract Player_Type getPlayerType();
     public abstract void setUIHook(Battleship_Display ui);
-    public abstract void doAddships();
     public abstract boolean addShip(Ships ship, Ship_Orientation direction, Point cord);
-    public abstract void playersTurn();
     public abstract boolean makeMove(Point location);
-    public abstract void announceWin(Player_Type player);
     public abstract boolean setStatus(String status);
 }

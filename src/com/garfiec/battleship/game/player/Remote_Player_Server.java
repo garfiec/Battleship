@@ -26,33 +26,15 @@ public class Remote_Player_Server extends Player {
         // Do nothing. Server only
     }
 
-    // Todo: Transmit message to Remote_Player_Client that it's time to set up the board
-    @Override
-    public void doAddships() {
-
-    }
-
     @Override
     public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
         return gm.addShip(this, ship, direction, cord);
-    }
-
-    // Send message to remote gui to make a move (Transmit)
-    @Override
-    public void playersTurn() {
-        // Todo: Transmit message to remote client indicating that it's the player's turn
     }
 
     // When received response from socket, passes move to game manager (Receive and pass back)
     @Override
     public boolean makeMove(Point location) {
         return gm.makeMove(player_type, location);
-    }
-
-    // Transmit message to client that a player has won
-    @Override
-    public void announceWin(Player_Type player) {
-        // Todo
     }
 
     // Transmit data to remote client

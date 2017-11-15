@@ -40,28 +40,13 @@ public class Client {
             }
 
             @Override
-            public void doAddships() {
-
-            }
-
-            @Override
             public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
                 return false;
             }
 
             @Override
-            public void playersTurn() {
-
-            }
-
-            @Override
             public boolean makeMove(Point location) {
                 return false;
-            }
-
-            @Override
-            public void announceWin(Player_Type player) {
-
             }
 
             @Override

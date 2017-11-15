@@ -40,12 +40,6 @@ public class Remote_Player_Client extends Player {
         this.ui = ui;
     }
 
-    // Todo: Tell Gui it's time to set up the board
-    @Override
-    public void doAddships() {
-
-    }
-
     // Todo: Transmit message to Remote_Player_Server the ship to add and where
     @Override
     public boolean addShip(Ships ship, Ship_Orientation direction, Point cord) {
@@ -53,22 +47,11 @@ public class Remote_Player_Client extends Player {
         return false;
     }
 
-    // Receive message via socket that it's player's turn. Tell player via UI to make move
-    public void playersTurn() {
-        // Todo: read above comment
-    }
-
     // Transmit message back via socket
     public boolean makeMove(Point location) {
         // Todo: read above comment
         System.out.println("Remote player made move. Todo: transmit move to server.");
         return false;
-    }
-
-    // Tell GUI that a player has won
-    @Override
-    public void announceWin(Player_Type player) {
-        // Todo
     }
 
     @Override
