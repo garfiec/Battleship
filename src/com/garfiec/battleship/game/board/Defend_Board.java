@@ -37,7 +37,7 @@ public class Defend_Board extends Map {
         int currNumShips = ship_roster.get(ship_type);
 
         // Too many of this type of ship.
-        if (currNumShips > ship_type.quantity) {
+        if (currNumShips >= ship_type.quantity) {
             return false;
         }
 

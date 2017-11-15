@@ -301,6 +301,22 @@ public class Battleship_Display extends JFrame {
         private Map.BoardType board_type;
         private String board_name = "None";
 
+        private void drawShips(Ships ship, Ship_Orientation orientation, Point location) {
+            // Draw ships using what we know locally rather than ask server
+            if (orientation == Ship_Orientation.HORIZONTAL) {
+                int tail = location.x + ship.size;
+                for (int x = location.x; x < tail; x++) {
+                    regions[location.y][x].setBackground(UI_Constants.SHIP_COLOR);
+                }
+            }
+            else if (orientation == Ship_Orientation.VERTICAL) {
+                int tail = location.y + ship.size;
+                for (int y = location.y; y < tail; y++) {
+                    regions[y][location.x].setBackground(UI_Constants.SHIP_COLOR);
+                }
+            }
+        }
+
         private JPanel createBoard() {
             JPanel board_panel = new JPanel();
             board_panel.setLayout(new GridLayout(Game_Consts.ROWS, Game_Consts.COLUMNS, UI_Constants.TILE_GAP_H, UI_Constants.TILE_GAP_V));
@@ -312,7 +328,7 @@ public class Battleship_Display extends JFrame {
                     final Point location = new Point(col, row);
 
                     JButton region = new JButton();
-                    region.setBackground(new Color(6, 61, 163));
+                    region.setBackground(UI_Constants.BLANK_COLOR);
 
                     region.addActionListener(e -> {
                         // Respond to click
@@ -321,7 +337,10 @@ public class Battleship_Display extends JFrame {
                             player.makeMove(location);
                         } else if (board_type == Map.BoardType.DEFEND_BOARD) {
                             // Add ship
-                            player.addShip(toAdd_Ship, toAdd_ShipOrientation, location);
+                            if (player.addShip(toAdd_Ship, toAdd_ShipOrientation, location)) {
+                                // Add ship successful. Add to board
+                                drawShips(toAdd_Ship, toAdd_ShipOrientation, location);
+                            }
                         }
 
                         // Update logic
