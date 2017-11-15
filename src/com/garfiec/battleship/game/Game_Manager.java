@@ -57,14 +57,7 @@ public class Game_Manager extends Client {
         gameInProgress = true;
 
         // Tell all players to add their ships
-        for (Player player: players) {
-            // player.doAddships(); possibly unnecessary
-            player.setStatus(Game_Strings.STATUS_SETUP_BOARD); // Todo: Bug - would not be successful send until ui hooks are set
-        }
-
-        // Choose random player to start and start
-        int randomPlayer = ThreadLocalRandom.current().nextInt(0, Game_Consts.NUM_PLAYERS);
-        notifyPlayerTurn(players[randomPlayer].getPlayerType());
+        announce(Game_Strings.STATUS_SETUP_BOARD);
     }
 
     @Override
@@ -97,6 +90,10 @@ public class Game_Manager extends Client {
         }
         if (everyoneCompleted) {
             setupMode = false;
+
+            // Choose random player to start and start game play
+            int randomPlayer = ThreadLocalRandom.current().nextInt(0, Game_Consts.NUM_PLAYERS);
+            notifyPlayerTurn(players[randomPlayer].getPlayerType());
         }
 
         return isAdded;
