@@ -7,6 +7,8 @@ import com.garfiec.battleship.game.ui.Battleship_Display;
 import com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Remote_Player_Client extends Player {
     private Remote_Client cli;
@@ -14,6 +16,19 @@ public class Remote_Player_Client extends Player {
     public Remote_Player_Client(Remote_Client cli) {
         player_type = Player_Type.REMOTE;
         this.cli = cli;
+
+        // Send status messages to GUI
+        TimerTask sendStatus = new TimerTask() {
+            @Override
+            public void run() {
+                if (ui != null && guiMessageBuffer != null) {
+                    ui.setStatus(guiMessageBuffer);
+                    guiMessageBuffer = null;
+                }
+            }
+        };
+        Timer statusSender = new Timer("StatusSender");
+        statusSender.schedule(sendStatus, 0, 100);
     }
 
     @Override
@@ -58,11 +73,7 @@ public class Remote_Player_Client extends Player {
 
     @Override
     public boolean setStatus(String status) {
-        if (ui == null) {
-            return false;
-        }
-
-        ui.setStatus(status);
+        guiMessageBuffer = status;
         return true;
     }
 }

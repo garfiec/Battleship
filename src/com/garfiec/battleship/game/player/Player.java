@@ -11,6 +11,7 @@ public abstract class Player {
     protected Battleship_Display ui;
 
     protected Player_Type player_type;
+    protected String guiMessageBuffer = null;
 
     public abstract Player_Type getPlayerType();
     public abstract void setUIHook(Battleship_Display ui);

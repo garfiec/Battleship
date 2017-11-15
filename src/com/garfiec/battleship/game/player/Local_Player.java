@@ -7,6 +7,8 @@ import com.garfiec.battleship.game.ui.Battleship_Display;
 import com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Local_Player extends Player {
 
@@ -15,6 +17,19 @@ public class Local_Player extends Player {
     public Local_Player(Game_Manager gm) {
         player_type = Player_Type.LOCAL;
         this.gm = gm;
+
+        // Send status messages to GUI
+        TimerTask sendStatus = new TimerTask() {
+            @Override
+            public void run() {
+                if (ui != null && guiMessageBuffer != null) {
+                    ui.setStatus(guiMessageBuffer);
+                    guiMessageBuffer = null;
+                }
+            }
+        };
+        Timer statusSender = new Timer("StatusSender");
+        statusSender.schedule(sendStatus, 0, 100);
     }
 
     @Override
@@ -35,7 +50,6 @@ public class Local_Player extends Player {
     // Send game_manager ship to add and where
     @Override
     public boolean addShip(Ships ship, Ship_Orientation direction, Point location) {
-        System.out.println("Local player added ship (" + location.x + ", " + location.y + ") Direction: " + direction.direction_name + " Ship: " + ship.getName());
         return gm.addShip(this, ship, direction, location);
     }
 
@@ -61,11 +75,7 @@ public class Local_Player extends Player {
 
     @Override
     public boolean setStatus(String status) {
-        if (ui == null) {
-            return false;
-        }
-
-        ui.setStatus(status);
+        guiMessageBuffer = status;
         return true;
     }
 }
