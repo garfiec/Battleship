@@ -60,7 +60,12 @@ public class Local_Player extends Player {
     }
 
     @Override
-    public void setStatus(String status) {
+    public boolean setStatus(String status) {
+        if (ui == null) {
+            return false;
+        }
+
         ui.setStatus(status);
+        return true;
     }
 }

@@ -4,6 +4,8 @@ import com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import com.garfiec.battleship.game.board.ships.Ships;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -95,6 +97,17 @@ public class Defend_Board extends Map {
         }
 
         return false;
+    }
+
+    public ArrayList<String> listShipsToAddLeft() {
+        ArrayList<String> list = new ArrayList<>();
+
+        for (Ships s:Ships.values()) {
+            if (ship_roster.get(s) < s.quantity) {
+                list.add(s.getName() + " (" + (s.quantity - ship_roster.get(s)) + ")");
+            }
+        }
+        return list;
     }
 
     public boolean isAlive() {

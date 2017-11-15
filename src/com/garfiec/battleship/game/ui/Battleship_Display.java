@@ -87,7 +87,7 @@ public class Battleship_Display extends JFrame {
         padding.setBackground(UI_Constants.STATUS_BAR_COLOR);
         statusBar.add(padding, BorderLayout.CENTER);
 
-        statusLabel = new JLabel("test");
+        statusLabel = new JLabel();
         statusLabel.setHorizontalAlignment(JLabel.CENTER);
         statusLabel.setVerticalAlignment(JLabel.CENTER);
         statusLabel.setForeground(UI_Constants.STATUS_BAR_TEXT_COLOR);
@@ -110,6 +110,7 @@ public class Battleship_Display extends JFrame {
         }
 
         player = game_client.getLocalPlayer();
+        player.setUIHook(this);
         this.setTitle(Game_Strings.GUI_TITLE + " | Player: " + player.getPlayerType().toString());
 
         return true;

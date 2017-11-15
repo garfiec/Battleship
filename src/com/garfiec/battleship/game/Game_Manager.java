@@ -8,9 +8,11 @@ import com.garfiec.battleship.game.player.Local_Player;
 import com.garfiec.battleship.game.player.Player;
 import com.garfiec.battleship.game.player.Remote_Player_Server;
 import com.garfiec.battleship.game.util.Game_Consts;
+import com.garfiec.battleship.game.util.Game_Strings;
 import com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 // Assumes to be the server (the local client)
@@ -56,7 +58,8 @@ public class Game_Manager extends Client {
 
         // Tell all players to add their ships
         for (Player player: players) {
-            player.doAddships();
+            // player.doAddships(); possibly unnecessary
+            player.setStatus(Game_Strings.STATUS_SETUP_BOARD); // Todo: Bug - would not be successful send until ui hooks are set
         }
 
         // Choose random player to start and start
@@ -73,7 +76,30 @@ public class Game_Manager extends Client {
     public boolean addShip(Player player, Ships ship, Ship_Orientation direction, Point cord) {
         if (!setupMode) { return false; }
 
-        return defend_boards[player.getPlayerType().index].addShip(ship, direction, cord);
+        // Try to add ship
+        boolean isAdded = defend_boards[player.getPlayerType().index].addShip(ship, direction, cord);
+
+        // Tell player ships remaining.
+        ArrayList<String> ship_list = defend_boards[player.getPlayerType().index].listShipsToAddLeft();
+        if (ship_list.size() == 0) {
+            player.setStatus(Game_Strings.STATUS_SETUP_WAITING_OPPONENT);
+        } else {
+            player.setStatus(Game_Strings.STATUS_SETUP_WAITING_LOCAL + " | Ships left: " + String.join(", ", ship_list));
+        }
+
+        // Check if all ships are added. If so, proceed with game
+        boolean everyoneCompleted = true;
+        for (Defend_Board b:defend_boards) {
+            if (b.listShipsToAddLeft().size() > 0) {
+                // Someone has ships left to add
+                everyoneCompleted = false;
+            }
+        }
+        if (everyoneCompleted) {
+            setupMode = false;
+        }
+
+        return isAdded;
     }
 
     // Processes move. Return whether move was successful.

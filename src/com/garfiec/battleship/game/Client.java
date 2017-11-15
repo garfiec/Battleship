@@ -63,6 +63,11 @@ public class Client {
             public void announceWin(Player_Type player) {
 
             }
+
+            @Override
+            public boolean setStatus(String status) {
+                return false;
+            }
         };
     }
 
