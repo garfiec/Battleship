@@ -7,6 +7,7 @@ import com.garfiec.battleship.game.board.ships.Ships;
 import com.garfiec.battleship.game.player.Local_Player;
 import com.garfiec.battleship.game.player.Player;
 import com.garfiec.battleship.game.player.Remote_Player_Server;
+import com.garfiec.battleship.game.util.Connection_Settings;
 import com.garfiec.battleship.game.util.Game_Consts;
 import com.garfiec.battleship.game.util.Game_Strings;
 import com.garfiec.battleship.game.util.Player_Type;
@@ -17,6 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 // Assumes to be the server (the local client)
 public class Game_Manager extends Client {
+
     private Player[] players = new Player[Game_Consts.NUM_PLAYERS];
 
     private Defend_Board[] defend_boards = new Defend_Board[Game_Consts.NUM_PLAYERS];
@@ -49,7 +51,9 @@ public class Game_Manager extends Client {
         gameInProgress = false;
 
         setupMode = true;
-        // Send set up board signal
+
+        // Let remote player server get the connection settings
+        players[Player_Type.REMOTE.index].setConnectionSettings(connection_settings);
     }
 
     public void startGame() {

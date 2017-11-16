@@ -2,7 +2,6 @@ package com.garfiec.battleship.game.ui;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.garfiec.battleship.game.Client;
@@ -16,15 +15,14 @@ import com.garfiec.battleship.game.ui.etc.Connection_Settings_Display;
 import com.garfiec.battleship.game.ui.etc.MessageBox;
 import com.garfiec.battleship.game.ui.etc.UI_About;
 import com.garfiec.battleship.game.util.Game_Consts;
-import com.garfiec.battleship.game.util.Game_Settings;
-import com.garfiec.battleship.game.util.Game_Strings;
+import com.garfiec.battleship.game.util.Connection_Settings;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Battleship_Display extends JFrame {
     // Settings object
-    private Game_Settings settings;
+    private Connection_Settings connection_settings;
 
     // Reference to client object controlling UI
     private Client game_client;
@@ -44,8 +42,6 @@ public class Battleship_Display extends JFrame {
         getContentPane().setLayout(new BorderLayout());
 
         // Initialization
-        settings = new Game_Settings();
-
         createMenu();
         createUI();
         createStatusBar();
@@ -112,6 +108,7 @@ public class Battleship_Display extends JFrame {
 
         player = game_client.getLocalPlayer();
         player.setUIHook(this);
+        connection_settings = game_client.getConnectionSettings();
         this.setTitle(UI_Strings.GUI_TITLE + " | Player: " + player.getPlayerType().toString());
 
         return true;
@@ -198,12 +195,7 @@ public class Battleship_Display extends JFrame {
         menu.addSeparator();
 
         menuItem = new JMenuItem("Connection Settings");
-        menuItem.addActionListener(e -> {
-            // TODO: Connection Settings (Show settings dialog)
-            //JDialog dialog = new JDialog(this, true);
-            //dialog.add(new Connection_Settings_Display(settings));
-            JDialog dialog = new JDialog(new Connection_Settings_Display(settings));
-        });
+        menuItem.addActionListener(e -> new JDialog(new Connection_Settings_Display(connection_settings)));
         menu.add(menuItem);
 
         menu.addSeparator();

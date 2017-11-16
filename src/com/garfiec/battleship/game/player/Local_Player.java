@@ -4,6 +4,7 @@ import com.garfiec.battleship.game.Game_Manager;
 import com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import com.garfiec.battleship.game.board.ships.Ships;
 import com.garfiec.battleship.game.ui.Battleship_Display;
+import com.garfiec.battleship.game.util.Connection_Settings;
 import com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
@@ -39,6 +40,11 @@ public class Local_Player extends Player {
 
     public void setUIHook(Battleship_Display ui) {
         this.ui = ui;
+    }
+
+    @Override
+    public void setConnectionSettings(Connection_Settings settings_obj) {
+        // Irrelevant to local
     }
 
     // Send game_manager ship to add and where

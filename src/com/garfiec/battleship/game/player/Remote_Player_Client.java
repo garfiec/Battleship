@@ -4,6 +4,7 @@ import com.garfiec.battleship.game.Remote_Client;
 import com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import com.garfiec.battleship.game.board.ships.Ships;
 import com.garfiec.battleship.game.ui.Battleship_Display;
+import com.garfiec.battleship.game.util.Connection_Settings;
 import com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
@@ -38,6 +39,11 @@ public class Remote_Player_Client extends Player {
 
     public void setUIHook(Battleship_Display ui) {
         this.ui = ui;
+    }
+
+    @Override
+    public void setConnectionSettings(Connection_Settings settings_obj) {
+        this.connection_settings = settings_obj;
     }
 
     // Todo: Transmit message to Remote_Player_Server the ship to add and where

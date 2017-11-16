@@ -1,14 +1,15 @@
 package com.garfiec.battleship.game.util;
 
-public class Game_Settings {
+public class Connection_Settings {
     // Connection: Server
     public int server_port;
 
     // Connection: Remote
     public int client_port;
 
-    public Game_Settings() {
+    public Connection_Settings() {
         // Initialize settings
+        server_port = 9000;
 
     }
 }

@@ -4,12 +4,15 @@ import com.garfiec.battleship.game.board.ships.Ship_Orientation;
 import com.garfiec.battleship.game.board.ships.Ships;
 import com.garfiec.battleship.game.player.Player;
 import com.garfiec.battleship.game.ui.Battleship_Display;
+import com.garfiec.battleship.game.util.Connection_Settings;
 import com.garfiec.battleship.game.util.Player_Type;
 
 import java.awt.*;
 
 // Generic Client
 public class Client {
+    protected Connection_Settings connection_settings;
+
     public enum Client_Type {
         GAME_MANAGER,
         REMOTE_CLIENT,
@@ -20,10 +23,15 @@ public class Client {
 
     public Client() {
         client_type = Client_Type.NONE;
+        connection_settings = new Connection_Settings();
     }
 
     public Client_Type getClientType() {
         return client_type;
+    }
+
+    public Connection_Settings getConnectionSettings() {
+        return connection_settings;
     }
 
     // Todo: Abstract methods to hook to UI
@@ -36,6 +44,11 @@ public class Client {
 
             @Override
             public void setUIHook(Battleship_Display ui) {
+
+            }
+
+            @Override
+            public void setConnectionSettings(Connection_Settings settings_obj) {
 
             }
 
