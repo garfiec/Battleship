@@ -361,7 +361,7 @@ public class Battleship_Display extends JFrame {
                             // Make Move
                             boolean isSuccessful = player.makeMove(location);
                             if (isSuccessful) {
-                                // Draw an X at location (color whether hit later)
+                                // Draw an X at location (color wheter hit later)
                                 region.setText("X");
                             }
                         } else if (board_type == Map.BoardType.DEFEND_BOARD) {

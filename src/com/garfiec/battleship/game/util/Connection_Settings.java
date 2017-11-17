@@ -5,11 +5,11 @@ public class Connection_Settings {
     public int server_port;
 
     // Connection: Remote
-    public int client_port;
+    public String server_host;
 
     public Connection_Settings() {
         // Initialize settings
         server_port = 9000;
-
+        server_host = "localhost";
     }
 }
